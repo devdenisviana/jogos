@@ -1,0 +1,46 @@
+<html>
+  <head>
+    <title>Idade, Signo e sorte do dia</title>
+  </head>
+  <body>
+    <h1>Idade, Signo e sorte do dia</h1>
+    <form action="">
+      <label for="name">Name: </label>
+      <input type="text" name="name" id="name">
+      <label for="dob">Date of Birth: </label>
+      <input type="date" name="dob" id="dob">
+      <input type="submit" value="Submit">
+    </form>
+  </body>
+  <script>
+    document.querySelector('form').onsubmit = function(e) {
+      e.preventDefault();
+      let name = document.querySelector('#name').value;
+      let dob = document.querySelector('#dob').value;
+      let age = calculateAge(dob);
+      let zodiacSign = calculateZodiacSign(dob);
+      let luckyDay = calculateLuckyDay(zodiacSign);
+      alert('Name: ' + name + '\n' +
+            'Age: ' + age + '\n' +
+            'Zodiac Sign: ' + zodiacSign + '\n' +
+            'Lucky Day: ' + luckyDay);
+    }
+
+    function calculateAge(dob) {
+      let today = new Date();
+      let birthDate = new Date(dob);
+      let age = today.getFullYear() - birthDate.getFullYear();
+      let month = today.getMonth() - birthDate.getMonth();
+      if (month < 0 || (month === 0 && today.getDate() < birthDate.getDate())) {
+        age = age - 1;
+      }
+      return age;
+    }
+
+    function calculateZodiacSign(dob) {
+      let birthMonth = new Date(dob).getMonth() + 1;
+      let zodiacSign = '';
+      if (birthMonth == 1) {
+        if (dob.getDate() < 20) {
+         
+
