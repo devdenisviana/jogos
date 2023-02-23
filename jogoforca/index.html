@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Jogo da Forca</title>
+  </head>
+  <body>
+    <h1>Jogo da Forca</h1>
+    <div>
+      <h2>Palavra a ser adivinhada:</h2>
+      <div id="word-display"></div>
+    </div>
+    <div>
+      <h2>Letras já tentadas:</h2>
+      <div id="letters-display"></div>
+    </div>
+    <div>
+      <h2>Tentativas restantes:</h2>
+      <div id="tries-display"></div>
+    </div>
+    <div>
+      <h2>Insira uma letra:</h2>
+      <input type="text" id="letter-input">
+      <button onclick="guessLetter()">Adivinhar</button>
+    </div>
+
+    <script>
+      // Define as variáveis
+      const words = ['programação', 'computador', 'algoritmo', 'desenvolvimento', 'javascript'];
+      let chosenWord = words[Math.floor(Math.random() * words.length)];
+      let displayedWord = '_'.repeat(chosenWord.length).split('');
+      let lettersTried = [];
+      let triesLeft = 6;
+
+      // Atualiza a exibição da palavra
+      function updateWordDisplay() {
+        document.getElementById('word-display').innerText = displayedWord.join(' ');
+      }
+
+      // Atualiza a exibição das letras já tentadas
+      function updateLettersDisplay() {
+        document.getElementById('letters-display').innerText = lettersTried.join(', ');
+      }
+
+      // Atualiza a exibição das tentativas restantes
+      function updateTriesDisplay() {
+        document.getElementById('tries-display').innerText = triesLeft;
+      }
+
+      // Verifica se o jogador ganhou
+      function checkWin() {
+        return !displayedWord.includes('_');
+      }
+
+      // Verifica se o jogador perdeu
+      function checkLoss() {
+        return triesLeft === 0;
+      }
+
+      // Verifica se a letra inserida pelo jogador está na palavra
+      function checkLetter(letter) {
+        if (chosenWord.includes(letter)) {
+          for (let i = 0; i < chosenWord.length; i++) {
+            if (chosenWord[i] === letter) {
+              displayedWord[i] = letter;
+            }
+          }
+          updateWordDisplay();
+        } else {
+          triesLeft--;
+          updateTriesDisplay();
+        }
+      }
+
+      // Lida com a tentativa de adivinhar uma letra
+      function guessLetter() {
+        const letterInput = document.getElementById('letter-input');
+        const letter = letterInput.value.toLowerCase();
+        if (lettersTried.includes(letter)) {
+          alert('Você já tentou essa letra!');
+        } else if (!letter.match(/[a-z]/)) {
+          alert('Por favor, insira uma letra!');
+        } else {
+          lettersTried.push(letter);
+          checkLetter(letter);
+          updateLettersDisplay();
+          if (checkWin()) {
+            alert('Parabéns, você ganhou!');
+          } else if (checkLoss()) {
+            alert(`Que pena, você perdeu! A palavra era ${chosenWord}`);
+          }
+        }
+        letterInput.value = '';
+      }
+
+      // Inicializa o jogo
+      updateWordDisplay();
+      updateTriesDisplay();
+    </script>
+  </body>
+</html>
