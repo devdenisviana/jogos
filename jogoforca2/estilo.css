@@ -1,0 +1,41 @@
+.container {
+    text-align: center;
+    margin: 50px auto;
+    max-width: 500px;
+}
+
+.word {
+    font-size: 2em;
+    margin: 20px 0;
+}
+
+.guesses {
+    margin-top: 20px;
+}
+
+input[type="text"] {
+    font-size: 1.5em;
+    padding: 5px;
+    width: 40px;
+    text-transform: uppercase;
+}
+
+button {
+    font-size: 1.5em;
+    padding: 5px 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+button:hover {
+    background-color: #3e8e41;
+}
+
+button:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+}
